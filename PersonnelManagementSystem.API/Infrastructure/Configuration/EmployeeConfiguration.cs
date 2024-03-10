@@ -11,15 +11,13 @@ public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
         builder.ToTable("employees");
 
         builder.HasKey(e => e.Id);
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
+        builder.Property(e => e.Id).HasColumnName("id").IsRequired();
 
-        builder.Property(e => e.EmployeeNumber).HasColumnName("EmployeeNumber").IsRequired();
-        builder.Property(e => e.FullName).HasColumnName("FullName").IsRequired();
-        builder.Property(e => e.EmployeeGender).HasColumnName("EmployeeGender").IsRequired();
-        builder.Property(e => e.DateBirth).HasColumnName("DateBirth").IsRequired();
-        builder.Property(e => e.DateHire).HasColumnName("DateHire").IsRequired();
-        builder.Property(e => e.DateTermination).HasColumnName("DateTermination");
-
-        
+        builder.Property(e => e.EmployeeNumber).HasColumnName("employee_number").IsRequired();
+        builder.Property(e => e.FullName).HasColumnName("full_name").IsRequired();
+        builder.Property(e => e.EmployeeGender).HasColumnName("employee_gender").IsRequired();
+        builder.Property(e => e.DateBirth).HasColumnName("date_birth").IsRequired();
+        builder.Property(e => e.DateHire).HasColumnName("date_hire").IsRequired();
+        builder.Property(e => e.DateTermination).HasColumnName("date_termination");
     }
 }

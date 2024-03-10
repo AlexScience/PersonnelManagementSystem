@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonnelManagementSystem.API.Infrastructure;
 
@@ -10,9 +11,11 @@ using PersonnelManagementSystem.API.Infrastructure;
 namespace PersonnelManagementSystem.API.Migrations
 {
     [DbContext(typeof(ManagementDbContext))]
-    partial class PersonnelContextModelSnapshot : ModelSnapshot
+    [Migration("20240310102850_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.16");
@@ -21,72 +24,78 @@ namespace PersonnelManagementSystem.API.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
 
                     b.Property<string>("DepartmentName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("department_name");
 
                     b.Property<Guid>("EmployeeId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("employee_id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
-
-                    b.ToTable("Departments");
+                    b.ToTable("department", (string)null);
                 });
 
             modelBuilder.Entity("PersonnelManagementSystem.Models.Models.Education", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
 
                     b.Property<string>("EducationLevel")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("employee_number");
 
                     b.Property<Guid>("EmployeeId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("employee_id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
-
-                    b.ToTable("Educations");
+                    b.ToTable("education", (string)null);
                 });
 
             modelBuilder.Entity("PersonnelManagementSystem.Models.Models.Employee", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("DateBirth")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("date_birth");
 
                     b.Property<DateTime>("DateHire")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("date_hire");
 
                     b.Property<DateTime?>("DateTermination")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("date_termination");
 
                     b.Property<int>("EmployeeGender")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("employee_gender");
 
                     b.Property<Guid>("EmployeeNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("employee_number");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("full_name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("employees", (string)null);
                 });
 
             modelBuilder.Entity("PersonnelManagementSystem.Models.Models.SalaryIncrease", b =>
@@ -106,31 +115,25 @@ namespace PersonnelManagementSystem.API.Migrations
                     b.ToTable("SalaryIncreases");
                 });
 
-            modelBuilder.Entity("PersonnelManagementSystem.Models.Models.Department", b =>
-                {
-                    b.HasOne("PersonnelManagementSystem.Models.Models.Employee", null)
-                        .WithOne("Department")
-                        .HasForeignKey("PersonnelManagementSystem.Models.Models.Department", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PersonnelManagementSystem.Models.Models.Education", b =>
-                {
-                    b.HasOne("PersonnelManagementSystem.Models.Models.Employee", null)
-                        .WithOne("Education")
-                        .HasForeignKey("PersonnelManagementSystem.Models.Models.Education", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PersonnelManagementSystem.Models.Models.Employee", b =>
                 {
-                    b.Navigation("Department")
+                    b.HasOne("PersonnelManagementSystem.Models.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .HasPrincipalKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Education")
+                    b.HasOne("PersonnelManagementSystem.Models.Models.Education", "Education")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .HasPrincipalKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Education");
                 });
 #pragma warning restore 612, 618
         }

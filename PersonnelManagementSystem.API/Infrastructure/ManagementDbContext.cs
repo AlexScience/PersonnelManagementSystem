@@ -20,13 +20,15 @@ public class ManagementDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+        modelBuilder.ApplyConfiguration(new EducationConfiguration());
+        modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
 
-        string connectionString = "Data Source=blogging.db"; // Путь к файлу базы данных SQLite
+        string connectionString = "Data Source=employees.db"; // Путь к файлу базы данных SQLite
 
         optionsBuilder.UseSqlite(connectionString);
     }

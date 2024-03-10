@@ -16,23 +16,22 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpGet("all")]
-    public ActionResult<IEnumerable<Employee>> GetAllEmployee()
+    public async Task<ActionResult<IEnumerable<Employee>>> GetAll()
     {
-        var employees = _employeeEntityService.GetAll();
+        var employees = await _employeeEntityService.GetAll();
         return Ok(employees);
     }
 
-    [HttpGet("id")]
-    public ActionResult<IEnumerable<Employee>> GetEmployeeById(Guid employeeId)
+    [HttpGet("/{id:guid}")]
+    public async Task<ActionResult<IEnumerable<Employee>>> GetById(Guid id)
     {
-        var employee = _employeeEntityService.GetById(employeeId);
+        var employee = await _employeeEntityService.GetById(id);
         return employee == null ? NotFound("Работник не найден") : Ok(employee);
     }
 
     [HttpPost]
-    public void CreateEmployee(Employee employee)
+    public async Task Create(Employee employee)
     {
-        _employeeEntityService.Create(employee);
+        await _employeeEntityService.Create(employee);
     }
-
 }

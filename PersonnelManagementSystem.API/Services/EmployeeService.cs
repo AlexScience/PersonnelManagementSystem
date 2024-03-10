@@ -1,29 +1,31 @@
+using Microsoft.EntityFrameworkCore;
 using PersonnelManagementSystem.API.Infrastructure;
 using PersonnelManagementSystem.Models.Models;
 
 namespace PersonnelManagementSystem.API.Services;
 
-public class EmployeeService : IEntityService<Employee>
+public sealed class EmployeeService : IEntityService<Employee>
 {
-    private readonly IDataStorage<Employee> _employeeStorage;
+    private readonly ManagementDbContext _context;
 
-    public EmployeeService(IDataStorage<Employee> employeeStorage)
+    public EmployeeService(ManagementDbContext context)
     {
-        _employeeStorage = employeeStorage;
+        _context = context;
     }
 
-    public void Create(Employee obj)
+    public async Task Create(Employee emp)
     {
-        _employeeStorage.Save(obj);
+        await _context.AddAsync(emp);
+        await _context.SaveChangesAsync();
     }
 
-    public IEnumerable<Employee> GetAll()
+    public async Task<IEnumerable<Employee>> GetAll()
     {
-        return _employeeStorage.FetchAll();
+        return await _context.Employees.ToListAsync();
     }
 
-    public Employee? GetById(Guid id)
+    public async Task<Employee?> GetById(Guid id)
     {
-        return _employeeStorage.Fetch(id);
+        return await _context.Employees.FirstOrDefaultAsync(emp => emp.Id == id);
     }
 }

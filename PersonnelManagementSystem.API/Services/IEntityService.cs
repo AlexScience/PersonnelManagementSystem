@@ -4,7 +4,7 @@ namespace PersonnelManagementSystem.API.Services;
 
 public interface IEntityService<T>
 {
-    public void Create(T obj);
-    public IEnumerable<T> GetAll();
-    public T? GetById(Guid id);
+    public Task Create(T obj);
+    public Task<IEnumerable<T>> GetAll();
+    public Task<T?> GetById(Guid id);
 }
