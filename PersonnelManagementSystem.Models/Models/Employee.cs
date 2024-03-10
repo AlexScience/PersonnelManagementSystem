@@ -2,7 +2,6 @@ namespace PersonnelManagementSystem.Models.Models;
 
 public record Employee : IEntity
 {
-
     public Guid Id { get; init; }
     public Guid EmployeeNumber { get; init; }
     public string FullName { get; init; } = string.Empty;

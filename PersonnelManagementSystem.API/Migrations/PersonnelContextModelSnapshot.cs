@@ -9,7 +9,7 @@ using PersonnelManagementSystem.API.Infrastructure;
 
 namespace PersonnelManagementSystem.API.Migrations
 {
-    [DbContext(typeof(PersonnelContext))]
+    [DbContext(typeof(ManagementDbContext))]
     partial class PersonnelContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

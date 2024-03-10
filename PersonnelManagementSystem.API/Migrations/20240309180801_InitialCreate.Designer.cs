@@ -10,7 +10,7 @@ using PersonnelManagementSystem.API.Infrastructure;
 
 namespace PersonnelManagementSystem.API.Migrations
 {
-    [DbContext(typeof(PersonnelContext))]
+    [DbContext(typeof(ManagementDbContext))]
     [Migration("20240309180801_InitialCreate")]
     partial class InitialCreate
     {
