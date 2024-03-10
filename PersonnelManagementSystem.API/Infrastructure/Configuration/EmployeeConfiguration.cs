@@ -20,15 +20,15 @@ public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
         builder.Property(e => e.DateHire).HasColumnName("DateHire").IsRequired();
         builder.Property(e => e.DateTermination).HasColumnName("DateTermination");
 
-        // builder.HasOne(e => e.Department)
-        //     .WithMany()
-        //     .HasForeignKey(e => e.DepartmentId)
-        //     .IsRequired();
-        //
-        // // Настройка связи с образованием (Education)
-        // builder.HasOne(e => e.Education)
-        //     .WithMany()
-        //     .HasForeignKey(e => e.EducationId)
-        //     .IsRequired();
+        builder.HasOne(e => e.Department)
+            .WithOne()
+            .HasForeignKey(e => e.Id)
+            .IsRequired();
+        
+        // Настройка связи с образованием (Education)
+        builder.HasOne(e => e.Education)
+            .WithOne(e => e.Employee)
+            .HasForeignKey(e => e.Id)
+            .IsRequired();
     }
 }
