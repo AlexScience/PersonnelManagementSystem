@@ -14,7 +14,7 @@ public class EducationConfiguration : IEntityTypeConfiguration<Education>
         builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
         
         builder.Property(e => e.EducationLevel).HasColumnName("EmployeeNumber").IsRequired();
-        builder.Property(e => e.EmployeeId).HasColumnName("EmployeeId").IsRequired();
+        // builder.Property(e => e.EmployeeId).HasColumnName("EmployeeId").IsRequired();
 
     }
 }
