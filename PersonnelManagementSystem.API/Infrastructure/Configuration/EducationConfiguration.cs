@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PersonnelManagementSystem.Models.Models;
+using PersonnelManagementSystem.API.Entities;
 
 namespace PersonnelManagementSystem.API.Infrastructure.Configuration;
 
@@ -14,7 +14,7 @@ public class EducationConfiguration : IEntityTypeConfiguration<Education>
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id).HasColumnName("id").IsRequired();
         
-        builder.Property(e => e.EducationLevel).HasColumnName("employee_number").IsRequired();
+        builder.Property(e => e.EducationLevel).HasColumnName("education_level").IsRequired();
 
         builder.HasMany<Employee>()
             .WithOne(e => e.Education)

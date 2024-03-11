@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PersonnelManagementSystem.API.Infrastructure;
-using PersonnelManagementSystem.Models.Models;
+using PersonnelManagementSystem.API.Entities;
 
 namespace PersonnelManagementSystem.API.Services;
 
@@ -28,4 +28,30 @@ public class EducationService : IEntityService<Education>
     {
         return await _context.Educations.FirstOrDefaultAsync(ed => ed.Id == id);
     }
+
+    public async Task Delete(Guid id)
+    {
+        var education = await _context.Educations.FindAsync(id);
+        if (education != null)
+        {
+            _context.Educations.Remove(education);
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task Update(Education employee)
+    {
+        var existingEducation = await _context.Educations.FindAsync(employee.Id);
+    
+        if (existingEducation == null)
+        {
+            throw new Exception("Вид образования не найден.");
+        }
+    
+        existingEducation.EducationLevel = employee.EducationLevel;
+
+        await _context.SaveChangesAsync();
+    }
+
+   
 }

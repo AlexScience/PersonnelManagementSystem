@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PersonnelManagementSystem.API.Infrastructure.Configuration;
-using PersonnelManagementSystem.Models.Models;
+using PersonnelManagementSystem.API.Entities;
 
 namespace PersonnelManagementSystem.API.Infrastructure;
 

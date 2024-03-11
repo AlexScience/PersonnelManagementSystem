@@ -1,4 +1,5 @@
-namespace PersonnelManagementSystem.Models.Models;
+
+namespace PersonnelManagementSystem.API.Entities;
 
 public interface IEntity
 {

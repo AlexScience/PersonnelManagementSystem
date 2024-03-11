@@ -17,7 +17,7 @@ namespace PersonnelManagementSystem.API.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.16");
 
-            modelBuilder.Entity("PersonnelManagementSystem.Models.Models.Department", b =>
+            modelBuilder.Entity("PersonnelManagementSystem.API.Entities.Department", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -29,16 +29,12 @@ namespace PersonnelManagementSystem.API.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("department_name");
 
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("employee_id");
-
                     b.HasKey("Id");
 
                     b.ToTable("department", (string)null);
                 });
 
-            modelBuilder.Entity("PersonnelManagementSystem.Models.Models.Education", b =>
+            modelBuilder.Entity("PersonnelManagementSystem.API.Entities.Education", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,18 +46,15 @@ namespace PersonnelManagementSystem.API.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("employee_number");
 
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("employee_id");
-
                     b.HasKey("Id");
 
                     b.ToTable("education", (string)null);
                 });
 
-            modelBuilder.Entity("PersonnelManagementSystem.Models.Models.Employee", b =>
+            modelBuilder.Entity("PersonnelManagementSystem.API.Entities.Employee", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
 
@@ -69,33 +62,43 @@ namespace PersonnelManagementSystem.API.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("date_birth");
 
-                    b.Property<DateTime>("DateHire")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("date_hire");
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DateTermination")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("date_termination");
+                    b.Property<Guid>("EducationId")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("EmployeeGender")
                         .HasColumnType("INTEGER")
                         .HasColumnName("employee_gender");
 
-                    b.Property<Guid>("EmployeeNumber")
-                        .HasColumnType("TEXT")
+                    b.Property<int>("EmployeeNumber")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("employee_number");
+
+                    b.Property<DateTime?>("FireDate")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("date_termination");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("full_name");
 
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("date_hire");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("EducationId");
 
                     b.ToTable("employees", (string)null);
                 });
 
-            modelBuilder.Entity("PersonnelManagementSystem.Models.Models.SalaryIncrease", b =>
+            modelBuilder.Entity("PersonnelManagementSystem.API.Entities.SalaryIncrease", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,19 +115,17 @@ namespace PersonnelManagementSystem.API.Migrations
                     b.ToTable("SalaryIncreases");
                 });
 
-            modelBuilder.Entity("PersonnelManagementSystem.Models.Models.Employee", b =>
+            modelBuilder.Entity("PersonnelManagementSystem.API.Entities.Employee", b =>
                 {
-                    b.HasOne("PersonnelManagementSystem.Models.Models.Department", "Department")
+                    b.HasOne("PersonnelManagementSystem.API.Entities.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("Id")
-                        .HasPrincipalKey("EmployeeId")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PersonnelManagementSystem.Models.Models.Education", "Education")
+                    b.HasOne("PersonnelManagementSystem.API.Entities.Education", "Education")
                         .WithMany()
-                        .HasForeignKey("Id")
-                        .HasPrincipalKey("EmployeeId")
+                        .HasForeignKey("EducationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

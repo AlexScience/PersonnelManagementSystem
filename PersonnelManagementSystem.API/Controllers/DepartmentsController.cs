@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PersonnelManagementSystem.API.Services;
-using PersonnelManagementSystem.Models.Models;
+using PersonnelManagementSystem.API.Entities;
 
 namespace PersonnelManagementSystem.API.Controllers;
 
@@ -34,4 +34,38 @@ public class DepartmentsController : ControllerBase
     {
         await _departmentEntityService.Create(department);
     }
+    
+    
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult<IEnumerable<Department>>> Delete(Guid id)
+    {
+        
+        var department = await _departmentEntityService.GetById(id);
+        if (department == null)
+        {
+            return NotFound("Отдел не найден");
+        }
+
+        await _departmentEntityService.Delete(id);
+        return NoContent();            
+    }
+    
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult> Update(Guid id, Department department)
+    {
+        if (id != department.Id)
+        {
+            return BadRequest("Идентификатор отдела не соответствует.");
+        }
+
+        var existingDepartment = await _departmentEntityService.GetById(id);
+        if (existingDepartment == null)
+        {
+            return NotFound("Отдел не найден.");
+        }
+
+        await _departmentEntityService.Update(department);
+        return Ok();
+    }
+    
 }

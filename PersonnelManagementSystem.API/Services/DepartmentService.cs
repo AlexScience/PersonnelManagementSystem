@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PersonnelManagementSystem.API.Infrastructure;
-using PersonnelManagementSystem.Models.Models;
+using PersonnelManagementSystem.API.Entities;
 
 namespace PersonnelManagementSystem.API.Services;
 
@@ -28,4 +28,31 @@ public sealed class DepartmentService : IEntityService<Department>
     {
         return await _context.Departments.FirstOrDefaultAsync(dep => dep.Id == id);
     }
+
+    public async Task Delete(Guid id)
+    {
+        var department = await _context.Departments.FindAsync(id);
+        if (department != null)
+        {
+            _context.Departments.Remove(department);
+            await _context.SaveChangesAsync();
+            _context.Update(department);
+        }
+    }
+
+    public async Task Update(Department employee)
+    {
+        var existingDepartment = await _context.Departments.FindAsync(employee.Id);
+    
+        if (existingDepartment == null)
+        {
+            throw new Exception("Отдел не найден.");
+        }
+    
+        existingDepartment.DepartmentName = employee.DepartmentName;
+
+        await _context.SaveChangesAsync();
+    }
+
+    
 }

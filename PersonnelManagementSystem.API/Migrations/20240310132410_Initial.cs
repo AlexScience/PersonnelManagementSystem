@@ -16,13 +16,11 @@ namespace PersonnelManagementSystem.API.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    employee_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     department_name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_department", x => x.id);
-                    table.UniqueConstraint("AK_department_employee_id", x => x.employee_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,13 +28,11 @@ namespace PersonnelManagementSystem.API.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    employee_id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    employee_number = table.Column<string>(type: "TEXT", nullable: false)
+                    education_level = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_education", x => x.id);
-                    table.UniqueConstraint("AK_education_employee_id", x => x.employee_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,29 +53,41 @@ namespace PersonnelManagementSystem.API.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    employee_number = table.Column<Guid>(type: "TEXT", nullable: false),
+                    employee_number = table.Column<int>(type: "INTEGER", nullable: false),
                     full_name = table.Column<string>(type: "TEXT", nullable: false),
                     employee_gender = table.Column<int>(type: "INTEGER", nullable: false),
                     date_birth = table.Column<DateTime>(type: "TEXT", nullable: false),
                     date_hire = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    date_termination = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    date_termination = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    DepartmentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    EducationId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_employees", x => x.id);
                     table.ForeignKey(
-                        name: "FK_employees_department_id",
-                        column: x => x.id,
+                        name: "FK_employees_department_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "department",
-                        principalColumn: "employee_id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_employees_education_id",
-                        column: x => x.id,
+                        name: "FK_employees_education_EducationId",
+                        column: x => x.EducationId,
                         principalTable: "education",
-                        principalColumn: "employee_id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_employees_DepartmentId",
+                table: "employees",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_employees_EducationId",
+                table: "employees",
+                column: "EducationId");
         }
 
         /// <inheritdoc />

@@ -1,8 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelManagementSystem.Models", "PersonnelManagementSystem.Models\PersonnelManagementSystem.Models.csproj", "{301E2AB9-8A0B-4A22-A435-5ED9BED37091}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelManagementSystem.API", "PersonnelManagementSystem.API\PersonnelManagementSystem.API.csproj", "{DA491530-5AED-4836-953E-C725827A14D4}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelManagementSystem.API", "PersonnelManagementSystem.API\PersonnelManagementSystem.API.csproj", "{DA491530-5AED-4836-953E-C725827A14D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,13 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{301E2AB9-8A0B-4A22-A435-5ED9BED37091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{301E2AB9-8A0B-4A22-A435-5ED9BED37091}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{301E2AB9-8A0B-4A22-A435-5ED9BED37091}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{301E2AB9-8A0B-4A22-A435-5ED9BED37091}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA491530-5AED-4836-953E-C725827A14D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA491530-5AED-4836-953E-C725827A14D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA491530-5AED-4836-953E-C725827A14D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA491530-5AED-4836-953E-C725827A14D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FD0C8C2-A6E9-455A-B1E3-BE53AF4B8E8E}
 	EndGlobalSection
 EndGlobal
